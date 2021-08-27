@@ -1,5 +1,4 @@
 function diffArray(arr1, arr2) { // take two arrays, find if there are objects that dont appear in both and return them
-
     let spreadArr = [...arr1,...arr2]; //spread the two arrays into one array
     let count = 0; //create count for while loop
     let arrSwitch = 0; //switch to see if 
@@ -33,7 +32,6 @@ function diffArray(arr1, arr2) { // take two arrays, find if there are objects t
     }
 
     function destroyer(arr) { //given an array an arguments, check each item in array agianst arguments. If object in array is one of the arguments, remove it from the array
-
       let lengthArr = arguments[0].length; //this is the length of the passed array
       let lengthArguments = arguments.length; // this is the length of the arguments
     
@@ -93,5 +91,20 @@ function diffArray(arr1, arr2) { // take two arrays, find if there are objects t
     return arr;
     }
     
-    //ataerawd
+    function spinalCase(str){ //convert a string sentence with no punctuation to spinal case. New words can begin with capital and string can have no spaces
+      str = str.replace(/[_]/g,""); //replace all underscores with empty space
+    
+      let length = str.length;//make length a variable so we can change it
+    
+      for (let i = 1; i<length;i++){ //iterate over the string
+
+        if (str[i] == str[i].toUpperCase() && str[i-1] == str[i-1].toLowerCase() && str[i-1] != " " && str[i] != " "){//if letter is captial and letter before it is lowercase
+          str = str.slice(0,i) + " " + str.slice(i); // add a space before capital letter
+          length+=1; //add one to length, since we added a space
+        }
+      }
+      str = str.replace(/[-]/g,""); //replace all instances of dashes, so we dont get duplicates
+      str = str.split(" ").join("-").toLowerCase();//split the str at spaces and add dashes
+      return str; //return the string
+    }
     
