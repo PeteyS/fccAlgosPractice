@@ -1,4 +1,4 @@
-function diffArray(arr1, arr2) { // take two arrays, find if there are objects that dont appear in both and return them
+function diffArray(arr1, arr2) { // take two arrays, find if there are objects that dont appear in both and return them in an array
     let spreadArr = [...arr1,...arr2]; //spread the two arrays into one array
     let count = 0; //create count for while loop
     let arrSwitch = 0; //switch to see if 
@@ -108,3 +108,82 @@ function diffArray(arr1, arr2) { // take two arrays, find if there are objects t
       return str; //return the string
     }
     
+    function translatePigLatin(str) { //takes on letter case word and return it in pig latin
+      let ay = ""; //will be used to find how many consonants a word starts with
+    
+      if (str[0] == "a" ||str[0] == "e" ||str[0] == "i" ||str[0] == "o" ||str[0] == "u"){ //if words beings with vowel
+        return str+"way";
+      }
+    
+      for(let i =0;i<str.length;i++){ //iterate over word to find number of consonants
+        if (str[i] == "a" ||str[i] == "e" ||str[i] == "i" ||str[i] == "o" ||str[i] == "u"){ //if word reaches a vowel
+          break; //get out
+        }
+        else{//otherwise
+          ay = ay + str[i]; //add that letter to ay
+        }
+      }
+      return str.slice(ay.length) + ay + "ay"; //return the word with whats in ay removed from the front, add whats in ay to the back and finish with the string 'ay'
+    }
+
+    function myReplace(str, before, after) { //replace second argument with third argument, if second argument starts with capital letter, make sure replaced becomes capital, and the opposite is also true
+
+      if (before[0] == before[0].toUpperCase()){ //check to see if first letter is uppercase
+        return str.replace(before,after[0].toUpperCase()+after.slice(1));//if it is, replace first letter of replacement with capital
+      }else if (before[0] == before[0].toLowerCase()){ //if its lower case, do the opposite
+        return str.replace(before,after[0].toLowerCase()+after.slice(1));
+      }
+      
+    }
+    function fearNotLetter(str) { //find the missing letter in the range and return it
+      let alpha = 'abcdefghijklmnopqrstuvwxyz'; //full alphabet, used to compare range with
+      let index = alpha.indexOf(str[0]); //find what letter the passed in parameter starts at
+
+      for (let i=0;i<str.length;i++){ //iterate through the whole range
+
+        if (alpha[index] == str[i]){ //if alphabet at same count is equal to the str then everythings in order
+          index+=1;
+        }
+        else if (alpha[index] != str[i]){ //otherwise, this is the missing letter
+          return (alpha[index]);
+        }else{
+          return undefined; //if everything is in order, return undefined
+        }
+      }
+    }
+    function uniteUnique(arr) { //add all the unique objects into an array in the same order that they appear
+      let newArr = []; //this will be the array we push to
+    
+      for (let i=0;i<arguments.length;i++){ //iterate to push all arguments into the new array, since we dont know all the arguments
+        newArr.push(...arguments[i]); 
+      }
+    
+      for (let i = newArr.length-1; i>=0;i--){ //iterate through the whole newArray to get rid of the reoccuring objects(we're going backwards through the array)
+    
+        for (let k = i-1;k>=0;k--){ //compare each object to the objects it its left in the array
+          if (newArr[k] == newArr[i]){ //if the object appears somewhere to the object of interest's left
+            newArr.splice(i,1); //remove the object of interest as that object appears somewhere to its left
+          }
+        }
+      }
+      return newArr; //return the newArray
+    }
+    function sumFibs(num) { //create a fib function that adds all the odd fib numbers that are equal or below the parameter
+      let a = 1; // a will take the updated sum
+      let b = 0; // b will take the old number
+      let temp,sum = 0,check = num; //temp is temp storage of old a to be put into new b
+    
+      while (num>=0){ //until we hit zero
+        temp = a; //temp becomes a
+        a = a + b; // a becomes the sum of a+b
+        b = temp; //b becomes what a used to be 
+        if (b%2 != 0 && b<= check){ //if b is odd and b is less than or equal to check
+          sum+=b; //add b to sum
+        }
+        else if (b>check){ //if b is greater than check
+          return sum; //return sum since we don't need to find any other fib numbers
+        }
+        --num; //reduce num by one
+      }
+      return sum;
+    }
